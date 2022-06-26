@@ -32,6 +32,7 @@ class Model:
         #self.P = self.P_0
         self.p = self.P_0
 
+
     def probability(self, y_k):
         #nd = scipy.stats.norm(self.m_[0], self.p_[0][0])
         distance = abs(self.m_[0] - y_k)
@@ -39,9 +40,12 @@ class Model:
         return distance/deviation
 
 
-    def predict(self):
+    def predict(self, Δt):
+        # Update function. Next temperature is
+        self.A = np.array([[1.0, Δt],[0.0, 1.0]])
         self.m_ = self.A @ self.m
         self.p_ = (self.A @ self.p @ self.A.T) + self.Q
+
 
         return self.m_, self.p_
 
@@ -56,10 +60,8 @@ def test():
     model = Model(12.0)
 
     for i in range(10):
-        m_, p_ = model.predict()
+        m_, p_ = model.predict(12.0)
         measurement = 30 + i*0.1
-
-
 
         print(f"Prediction: T {m_[0]:2} dT/12s {m_[1]*12}")
         print(f"Measurement: {measurement}", f"Probability {model.probability(measurement)}")
