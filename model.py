@@ -1,7 +1,6 @@
 import math
 
 import numpy as np
-import scipy.stats
 
 
 class Model:
@@ -25,16 +24,15 @@ class Model:
         self.A = np.array([[1.0, Δt],[0.0, 1.0]])
 
         # Covariance
-        self.Q = np.array([[0.01, 0.0],[0.0, 0.033]])
+        self.Q = np.array([[0.01, 0.0],[0.00, 0.00001]])
 
-        self.P_0 = np.array([[10, 0.0], [0.0, 0.033]])
+        self.P_0 = np.array([[10, 0.0], [0.00, 0.1]])
         self.P_0 *= self.P_0
         #self.P = self.P_0
         self.p = self.P_0
 
 
     def probability(self, y_k):
-        #nd = scipy.stats.norm(self.m_[0], self.p_[0][0])
         distance = abs(self.m_[0] - y_k)
         deviation = math.sqrt(self.p_[0][0])
         return distance/deviation
