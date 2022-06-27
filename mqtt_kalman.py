@@ -7,13 +7,13 @@ import paho.mqtt.client as mqtt
 
 # User argparser to get username and password for mqtt
 import argparse
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--username", help="mqtt username", default="")
 parser.add_argument("--password", help="mqtt password", default="")
 # Add hostname to the mqtt client
 parser.add_argument("--hostname", help="mqtt hostname", default="localhost")
 args = parser.parse_args()
-
 
 # Connect to broker at rollspelswiki.se
 broker_address = args.hostname
